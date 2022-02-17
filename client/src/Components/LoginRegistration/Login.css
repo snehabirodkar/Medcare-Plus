@@ -1,0 +1,14 @@
+.login-image-container img{
+    height: 520px;
+    transform: translateX(-20px);
+}
+
+@media screen and (min-width: 1366px) {
+    /* body {
+      background-color: lightgreen !important;
+    } */
+    .login-image-container img{
+        height: 440px;
+        transform: translateX(-20px);
+    }
+}

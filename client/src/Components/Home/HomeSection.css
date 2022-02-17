@@ -1,0 +1,19 @@
+#home-section{
+    background-color: rgba(33, 132, 187, 0.15);
+    position: relative;
+}
+.home-header{
+    color: #2184BB;
+    font-weight: bold;
+}
+.image-container{
+    position: absolute;
+    right: 0%; 
+    top: 40%;
+    transform: translateY(-40%);
+}
+.image-container img{
+    height: 550px;
+    width: 550px; 
+}
+

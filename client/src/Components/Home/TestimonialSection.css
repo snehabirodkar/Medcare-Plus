@@ -1,0 +1,8 @@
+.testimonial-card-bg{
+    background-color: rgba(33, 132, 187, 0.1);
+    border-radius: 50px 50px 0 50px;
+}
+.quote-img{
+    height: 70px;
+    transform: translateX(43%);
+}

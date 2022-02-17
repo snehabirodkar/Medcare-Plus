@@ -1,0 +1,27 @@
+#navbar-c {
+    background-color: #fff !important;
+    padding: 20px 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.12), 0 6px 20px 0 rgba(0, 0, 0, 0.034);
+}
+.nav-item a{
+    /* color: #fff !important; */
+}
+.c-navbar {
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 9 !important;
+}
+#top-nav{
+    padding: 8px;
+    background-color: #2184BB;
+    color: #fff;
+}
+#top-nav a{
+    text-decoration: none;
+    /* color: #2184BB;
+    border-bottom: 1px transparent solid; */
+    transition: all .3s ease-in-out;
+}
+#top-nav a:hover{
+    border-bottom: solid 1px #2184BB;
+}

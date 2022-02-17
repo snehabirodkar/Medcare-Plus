@@ -1,0 +1,8 @@
+.news-cards-img img{
+    height: 300px;
+    width: 100%;
+}
+.news-card-bg{
+    background-color: rgba(33, 132, 187, 0.1);
+    border-radius: 15px;
+}

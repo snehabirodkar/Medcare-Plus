@@ -1,0 +1,10 @@
+.approval-card{
+    background-color: rgba(33, 132, 187, 0.1);
+    border-radius: 10px;
+    padding: 20px;
+    width: 300px;
+    margin: 20px;
+}
+#card1{
+    display: none;
+}

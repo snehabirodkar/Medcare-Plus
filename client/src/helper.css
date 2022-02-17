@@ -1,0 +1,53 @@
+.content-box-x-lg {
+    padding: 240px 0 !important;
+}
+
+.content-box-lg {
+    padding: 160px 0 !important;
+}
+
+.content-box-md {
+    padding: 90px 0 !important;
+}
+
+.content-box-sm {
+    padding: 40px 0 !important;
+}
+
+.content-box-x-sm {
+    padding: 20px 0 !important;
+}
+
+.h-5 {
+    height: 50vh !important;
+}
+
+.h-6 {
+    height: 60vh !important;
+}
+
+.h-7 {
+    height: 70vh !important;
+}
+.c-btn{
+    padding: 12px 20px;
+    cursor: pointer;
+    border-radius: 10px;
+    text-decoration: none;
+}
+.c-btn-primary{
+    color: #fff;
+    background-color: #2184BB;
+    transition: all .3s ease-in-out;
+    border: solid 1px transparent;
+}
+.c-btn-primary:hover{
+    color: #2184BB;
+    background-color: transparent;
+    border: solid 1px #2184BB;
+}
+.flex{
+    display: flex;
+    flex-wrap: wrap;
+    grid-gap: 50px;
+}
