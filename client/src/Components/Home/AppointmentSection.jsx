@@ -26,16 +26,24 @@ const AppointmentSection = () => {
     arrows: true,
     responsive: [
       {
-        breakpoint: 1024,
+        breakpoint: 1200,
         settings: {
-          slidesToShow: 3,
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          infinite: true,
+          dots: true
+        }
+      },{
+        breakpoint: 992,
+        settings: {
+          slidesToShow: 2,
           slidesToScroll: 1,
           infinite: true,
           dots: true
         }
       },
       {
-        breakpoint: 600,
+        breakpoint: 768,
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
@@ -59,12 +67,12 @@ const AppointmentSection = () => {
         <div className="container-fluid">
           <div className="content-box-md">
             <div className="row">
-              <div className="col-md-10 col-sm-3 mx-auto">
+              <div className="col-md-10 col-sm-10 mx-auto">
                 <div className="row">
                   <SectionHeader title="Book an Appointment" />
-                  <div className="col-md-12 col-xs-5 mx-auto">
+                  <div className="col-md-12 col-xs-7 mx-auto">
                     <Slider {...settings}>
-                      <AppointmentCard title="Dentist" description="A dental surgeon, is a medical professional who specializes in dentistry, the diagnosis, prevention, and treatment of diseases." imgsrc={dentist} linkto="/proffession/dentist" />
+                      <AppointmentCard title="Dentist" description="A dental surgeon, is a medical professional who specializes in dentistry, the diagnosis, and treatment of diseases." imgsrc={dentist} linkto="/proffession/dentist" />
                       <AppointmentCard title="Gynaecologist" description="Gynaecology is the medical practice dealing with the health of the female reproductive system and its cure. " imgsrc={gynaecologist} linkto="/proffession/gynaecologist" />
                       <AppointmentCard title="Dietician/Nutrition" description="A dietitian is an expert in identifying and treating disease-related malnutrition and in conducting medical nutrition therapy." imgsrc={diet} linkto="/proffession/dietitian" />
                       <AppointmentCard title="ENT" description="An ENT doctor is an expert in handling diseases associated ear, nasal passage, larynx (voice box) and its cure." imgsrc={end} linkto="/proffession/ent" />

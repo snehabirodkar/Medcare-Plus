@@ -1,13 +1,14 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import LoginImg from "./LoginImg";
-import { NavLink, useHistory } from "react-router-dom"; 
+import { NavLink, useHistory } from "react-router-dom";
+import Navbar from "../NavigationBar/Navbar";
 
 const Registration = () => {
     const history = useHistory();
     const [patient, setPatient] = useState({
         name: "", email: "", password: "", cpassword: ""
     });
-    
+
     let name, value;
     const handleInputs = (e) => {
         console.log(e);
@@ -15,15 +16,15 @@ const Registration = () => {
         name = e.target.name;
         value = e.target.value;
 
-        setPatient({...patient, [name]:value});
+        setPatient({ ...patient, [name]: value });
     }
 
     const PostData = async (e) => {
         e.preventDefault();
 
-        const {name, email, password, cpassword} = patient;
+        const { name, email, password, cpassword } = patient;
 
-        const res = await fetch('/register',  {
+        const res = await fetch('/register', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -35,20 +36,21 @@ const Registration = () => {
 
         const data = await res.json();
 
-        if(res.status === 422 ||  !data) {
+        if (res.status === 422 || !data) {
             window.alert("Invalid Registration");
             console.log("Invalid Registration");
         } else {
             window.alert("Registration Successful");
             console.log("Registration Successful");
-    
+
             history.push("/login");
         }
     }
-    
+
 
     return (
         <>
+            <Navbar />
             <section id="registration">
                 <div className="container-fluid">
                     <div className="content-box-md">
@@ -60,27 +62,27 @@ const Registration = () => {
                                     <div class="mb-3">
                                         <label for="exampleInputName" class="form-label">Full Name</label>
                                         <input type="text" class="form-control" name="name" id="name" autoComplete="off"
-                                        value={patient.name} onChange={handleInputs} required />
+                                            value={patient.name} onChange={handleInputs} required />
                                     </div>
                                     <div class="mb-3">
                                         <label for="exampleInputEmail1" class="form-label">Email address</label>
-                                        <input type="email" class="form-control" id="exampleInputEmail1" name="email" id="email" autoComplete="off"   aria-describedby="emailHelp"
-                                        value={patient.email} onChange={handleInputs} 
-                                        required />
+                                        <input type="email" class="form-control" id="exampleInputEmail1" name="email" id="email" autoComplete="off" aria-describedby="emailHelp"
+                                            value={patient.email} onChange={handleInputs}
+                                            required />
                                     </div>
                                     <div class="mb-3">
                                         <label for="exampleInputPassword1" class="form-label">Password</label>
                                         <input type="password" class="form-control" name="password" id="password" autoComplete="off"
-                                        value={patient.password} onChange={handleInputs} 
-                                        required />
+                                            value={patient.password} onChange={handleInputs}
+                                            required />
                                     </div>
                                     <div class="mb-3">
                                         <label for="exampleInputPassword1" class="form-label">Re-Enter Password</label>
-                                        <input type="password" class="form-control" id="cpassword" name="cpassword" autoComplete="off" 
-                                        value={patient.cpassword} onChange={handleInputs}
-                                        required />
+                                        <input type="password" class="form-control" id="cpassword" name="cpassword" autoComplete="off"
+                                            value={patient.cpassword} onChange={handleInputs}
+                                            required />
                                     </div>
-                                    <input type="submit" name="signup" id="signup" value="Register"  class="btn btn-primary w-100" onClick={PostData} />
+                                    <input type="submit" name="signup" id="signup" value="Register" class="btn btn-primary w-100" onClick={PostData} />
                                 </form>
                                 <div className="row">
                                     <div className="col-md-10 mx-auto">

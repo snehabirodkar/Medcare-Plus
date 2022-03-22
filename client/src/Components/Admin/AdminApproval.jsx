@@ -3,6 +3,7 @@ import SectionHeader from "../SectionHeader";
 import { useHistory } from "react-router-dom";
 
 import "./Approval.css"
+import Navbar from "../NavigationBar/Navbar";
 
 const AdminApproval = () => {
 
@@ -112,6 +113,7 @@ const AdminApproval = () => {
 
     return (
         <>
+            <Navbar />
             <section id="admin-approval-section">
                 <form method="GET">
                     <div className="container-fluid">

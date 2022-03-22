@@ -1,11 +1,13 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import Footer from "../Footer";
+import Navbar from "../NavigationBar/Navbar";
 import SectionHeader from "../SectionHeader";
 
 const Ent = () => {
     return (
         <>
+        <Navbar />
             <section id="dentist">
                 <div className="container-fluid">
                     <div className="content-box-md">

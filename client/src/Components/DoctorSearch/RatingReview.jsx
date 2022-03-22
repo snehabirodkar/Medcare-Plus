@@ -1,6 +1,7 @@
 import axios, { Axios } from "axios";
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import Navbar from "../NavigationBar/Navbar";
 import SectionHeader from "../SectionHeader";
 import Ratings from "./Ratings";
 
@@ -160,6 +161,7 @@ const RatingReview = ({ match }) => {
 
     return (
         <>
+            <Navbar />
             <section id="RatingReview">
                 <div className="container">
                     <div className="content-box-md">

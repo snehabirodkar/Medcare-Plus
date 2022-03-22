@@ -1,13 +1,13 @@
-import React, {useState, useContext} from "react";
+import React, { useState, useContext } from "react";
 import './Login.css';
-import { NavLink, useHistory } from "react-router-dom"; 
+import { NavLink, useHistory } from "react-router-dom";
 import LoginImg from "./LoginImg";
 
 import { UserContext } from "../../App"
+import Navbar from "../NavigationBar/Navbar";
 
 const Login = () => {
-
-    const {state, dispatch} = useContext(UserContext);
+    const { state, dispatch } = useContext(UserContext);
 
     const history = useHistory();
 
@@ -23,28 +23,29 @@ const Login = () => {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                email, 
+                email,
                 password
             })
         });
 
         const data = res.json();
 
-        if(res.status === 400 || !data) {
+        if (res.status === 400 || !data) {
             window.alert("Invalid Credentials");
             console.log("Invalid Credentials");
-        } else {
-            dispatch({type:"USER", payload:true})
+        } else if(data) {
+            dispatch({ type: "USER", payload: true })
             localStorage.setItem("currentpatientloggedin", email);
             window.alert("Login Successful");
             console.log("Login Successful");
-
+            document.cookie = "isPlogin=true";
             history.push('/');
         }
     }
 
     return (
         <>
+            <Navbar />
             <section id="login">
                 <div className="container-fluid">
                     <div className="content-box-md">
@@ -56,14 +57,14 @@ const Login = () => {
                                     <div class="mb-3">
                                         <label for="exampleInputEmail1" class="form-label">Email address</label>
                                         <input type="email" class="form-control" name="email" id="email" value={email}
-                                        onChange={(e) => setEmail(e.target.value)}
-                                        aria-describedby="emailHelp" required />
+                                            onChange={(e) => setEmail(e.target.value)}
+                                            aria-describedby="emailHelp" required />
                                     </div>
                                     <div class="mb-3">
                                         <label for="exampleInputPassword1" class="form-label">Password</label>
                                         <input type="password" value={password}
-                                        onChange={(e) => setPassword(e.target.value)}
-                                        class="form-control" name="password" id="password" required />
+                                            onChange={(e) => setPassword(e.target.value)}
+                                            class="form-control" name="password" id="password" required />
                                     </div>
                                     <input type="submit" class="btn btn-primary w-100" name="signin" id="signin" value="Log In" onClick={loginUser} />
                                 </form>

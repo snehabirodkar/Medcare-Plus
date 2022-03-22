@@ -3,6 +3,7 @@ import SectionHeader from '../SectionHeader';
 import { useHistory } from "react-router-dom";
 
 import "./appointment.css"
+import Navbar from '../NavigationBar/Navbar';
 
 const PatientAppointment = () => {
     const history = useHistory();
@@ -93,6 +94,7 @@ const PatientAppointment = () => {
 
     return (
         <>
+            <Navbar />
             <section id="patient-appointment-section">
                 <form method="GET">
                     <div className="container-fluid">
@@ -138,7 +140,7 @@ const PatientAppointment = () => {
                                                                             )
                                                                         }
                                                                     }
-                                                                    
+
                                                                 }
 
 

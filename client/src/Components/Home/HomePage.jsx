@@ -1,5 +1,6 @@
-import React, {useContext} from 'react';
+import React, { useContext } from 'react';
 import Footer from '../Footer';
+import Navbar from '../NavigationBar/Navbar';
 import AboutSection from './AboutSection';
 import AppointmentSection from './AppointmentSection';
 import HomeSection from './HomeSection';
@@ -11,6 +12,7 @@ const HomePage = () => {
 
     return (
         <>
+            <Navbar />
             <HomeSection />
             <AboutSection />
             <AppointmentSection />

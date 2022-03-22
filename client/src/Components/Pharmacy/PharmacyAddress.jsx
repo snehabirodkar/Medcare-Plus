@@ -1,6 +1,7 @@
 import React from 'react';
 import SectionHeader from '../SectionHeader';
 import axios from 'axios';
+import Navbar from '../NavigationBar/Navbar';
 
 const PharmacyAddress = () => {
 
@@ -103,6 +104,7 @@ const PharmacyAddress = () => {
 
     return (
         <>
+        <Navbar />
             <section id="pharmacy">
                 <div className="container">
                     <div className="content-box-sm">

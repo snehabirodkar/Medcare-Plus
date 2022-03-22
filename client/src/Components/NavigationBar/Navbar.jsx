@@ -27,13 +27,13 @@ const Navbar = () => {
 
             data = await res.json();
             data.map((item, index) => {
-                console.log(PatientEmail);
+                // console.log(PatientEmail);
                 if (PatientEmail == item.email) {
                     LoggedInUser = item.name;
                     localStorage.setItem("cuser", LoggedInUser);
                 }
             })
-            console.log("PatientEmail:", PatientEmail);
+            // console.log("PatientEmail:", PatientEmail);
 
         } catch (error) {
             console.log(error);
@@ -52,9 +52,9 @@ const Navbar = () => {
                 headers: { "Content-Type": "application/json" },
             });
             getDoctors = await res.json();
-            console.log("Doctors are:", getDoctors);
+            // console.log("Doctors are:", getDoctors);
 
-            console.log(DoctorEmail);
+            // console.log(DoctorEmail);
 
             getDoctors.map((item, index) => {
                 if (DoctorEmail == item.email) {
@@ -77,30 +77,38 @@ const Navbar = () => {
 
     const { state, dispatch } = useContext(UserContext);
     const RenderMenu = () => {
-        if (state) {
+        var a = document.cookie;
+        console.log(a);
+        if (a.includes("true")) {
             return (
                 <>
                     <div className="d-flex flex-row-reverse">
                         <ul className="navbar-nav">
                             <li className="nav-item">
-                                <NavLink className="btn btn-danger btn-sm mx-2" to="/logout">Logout</NavLink>
+                                <a className="btn btn-danger btn-sm mx-2" href="/logout">Logout</a>
                             </li>
                         </ul>
                     </div>
                 </>
             )
-        } else {
+        }
+        // if (state) {
+        //     return (
+        //         <>
+        //             <div className="d-flex flex-row-reverse">
+        //                 <ul className="navbar-nav">
+        //                     <li className="nav-item">
+        //                         <NavLink className="btn btn-danger btn-sm mx-2" to="/logout">Logout</NavLink>
+        //                     </li>
+        //                 </ul>
+        //             </div>
+        //         </>
+        //     )
+        // } 
+        else {
 
             return (
                 <>
-
-                    {/* <NavLink className="btn btn-outline-light btn-sm mx-2" to="/register">Patient Registeration</NavLink>
-                    <NavLink className="btn btn-outline-light btn-sm mx-2" to="/login">Patient Login</NavLink>
-                    <NavLink className="btn btn-outline-light btn-sm mx-2" to="/admin/login">Admin Login </NavLink>
-                    <NavLink className="btn btn-outline-light btn-sm mx-2" to="/admin/register">Admin Registrtation </NavLink>
-                    <NavLink className="btn btn-outline-light btn-sm mx-2" to="/doctor/register">Doctor Registeration</NavLink>
-                    <NavLink className="btn btn-outline-light btn-sm mx-2" to="/doctor/login">Doctor Login</NavLink> */}
-
                     <div className="d-flex justify-content-around me-5 pe-5">
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                             <li className="nav-item dropdown mx-2">
@@ -110,6 +118,8 @@ const Navbar = () => {
                                 <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <li><a className="dropdown-item" href="/login">Patient Login</a></li>
                                     <li><a className="dropdown-item" href="/register"> Patient Register</a></li>
+                                    <li><hr class="dropdown-divider"/></li>
+                                    <li><a class="dropdown-item" href="/patient/dashboard">Patient Dashboard</a></li>
                                 </ul>
                             </li>
 
@@ -120,6 +130,8 @@ const Navbar = () => {
                                 <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <li><a className="dropdown-item" href="/doctor/login">Doctor Login</a></li>
                                     <li><a className="dropdown-item" href="/doctor/register"> Doctor Register</a></li>
+                                    <li><hr class="dropdown-divider"/></li>
+                                    <li><a class="dropdown-item" href="/doctor/dashboard">Doctor Dashboard</a></li>
                                 </ul>
                             </li>
 
@@ -130,6 +142,8 @@ const Navbar = () => {
                                 <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <li><a className="dropdown-item" href="/admin/login">Admin Login</a></li>
                                     {/* <li><a className="dropdown-item" href="/admin/register"> Admin Register</a></li> */}
+                                    <li><hr class="dropdown-divider"/></li>
+                                    <li><a class="dropdown-item" href="/admin/doctorapproval">Approval Page</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -144,13 +158,13 @@ const Navbar = () => {
 
         <>
             <section id="top-nav">
-                <div className="d-flex" style={{ "justify-content": "space-between" }}>
+                <div className="d-flex" style={{ "justifyContent": "space-between" }}>
                     <div className="d-flex flex-row-reverse">
                         <img src={facebook} alt="Facebook Logo" height="27px" style={{ padding: "0 4px" }} />
                         <img src={instagram} alt="Instagram Logo" height="27px" style={{ padding: "0 4px" }} />
                         <img src={github} alt="Github Logo" height="27px" style={{ padding: "0 4px" }} />
                     </div>
-                    <h6 style={{ "padding-right": "50px", "padding-top": "5px" }}>Greetings, {localStorage.getItem("cuser")}</h6>
+                    <h6 style={{ "paddingRight": "50px", "paddingTop": "5px" }}>Greetings, {localStorage.getItem("cuser")}</h6>
                 </div>
             </section>
 
@@ -165,22 +179,31 @@ const Navbar = () => {
                             <li className="nav-item">
                                 <NavLink className="nav-link" to="/">Home</NavLink>
                             </li>
-                            <li className="nav-item">
+                            {/* <li className="nav-item">
                                 <NavLink className="nav-link" to="/doctorsearch">Doctor Search</NavLink>
-                            </li>
-                            <li className="nav-item">
+                            </li> */}
+                            {/* <li className="nav-item">
                                 <a className="nav-link " href="https://medcare-bloodbankstats.netlify.app/" target="_blank">Blood Bank</a>
-                            </li>
+                            </li> */}
                             <li className="nav-item">
                                 <NavLink className="nav-link" to="/ambulancelist">Ambulance</NavLink>
                             </li>
-                            <li className="nav-item">
+                            {/* <li className="nav-item">
                                 <NavLink className="nav-link" to="/admin/doctorapproval">Approval page</NavLink>
-                            </li>
+                            </li> */}
                             <li className="nav-item">
                                 <NavLink className="nav-link" to="/pharmacy">Pharmacy</NavLink>
                             </li>
-                            <li className="nav-item dropdown mx-2">
+                            <li className="nav-item">
+                                <NavLink className="nav-link" to="/patient/dashboard">Patient Dashboard</NavLink>
+                            </li>
+                            <li className="nav-item">
+                                <NavLink className="nav-link" to="/doctor/dashboard">Doctor Dashboard</NavLink>
+                            </li>
+                            {/* <li className="nav-item">
+                                <NavLink className="nav-link" to="/news">News(Beta)</NavLink>
+                            </li> */}
+                            {/* <li className="nav-item dropdown mx-2">
                                 <a className="nav-link dropdown-toggle p-2" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Appointment
                                 </a>
@@ -188,7 +211,7 @@ const Navbar = () => {
                                     <li><a className="dropdown-item" href="/appointment/patient">Patient Appointment</a></li>
                                     <li><a className="dropdown-item" href="/appointment/doctor"> Doctor Appointment</a></li>
                                 </ul>
-                            </li>
+                            </li> */}
                         </ul>
                         <RenderMenu />
                     </div>

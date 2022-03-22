@@ -33,7 +33,7 @@ const Testimonial = () => {
                 <div className="container-fluid">
                     <div className="content-box-md">
                         <div className="row">
-                            <div className="col-md-10 col-sm-3 mx-auto">
+                            <div className="col-md-10 col-sm-10 mx-auto">
                                 <div className="row">
                                     <SectionHeader title="Testimonial Section" />
                                     <div className="col-md-12 mx-auto">

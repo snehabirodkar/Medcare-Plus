@@ -1,5 +1,6 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
+import Navbar from "../NavigationBar/Navbar";
 
 const AdminRegistration = () => {
 
@@ -15,15 +16,15 @@ const AdminRegistration = () => {
         name = e.target.name;
         value = e.target.value;
 
-        setAdmin({...admin, [name]:value});
+        setAdmin({ ...admin, [name]: value });
     }
 
     const PostData = async (e) => {
         e.preventDefault();
 
-        const {name, email, password, cpassword } = admin;
+        const { name, email, password, cpassword } = admin;
 
-        const res = await fetch('/adminRegister',  {
+        const res = await fetch('/adminRegister', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -35,27 +36,28 @@ const AdminRegistration = () => {
 
         const data = await res.json();
 
-        if(res.status === 422 ||  !data) {
+        if (res.status === 422 || !data) {
             window.alert("Invalid Registration");
             console.log("Invalid Registration");
         } else {
             window.alert("Registration Successful");
             console.log("Registration Successful");
-    
+
             history.push("/admin/Login");
         }
     }
 
-    
+
     return (
         <>
+            <Navbar />
             <section id="register">
                 <div className="container-fluid">
                     <div className="content-box-md">
                         <div className="row">
                             <div className="col-md-6 px-4 my-auto mx-auto">
                                 <h1 className="text-center" style={{ color: '#2184BB', fontWeight: 'bold' }}>MedCare Plus</h1>
-                                <p className="text-center" style={{ fontWeight: 'bold', fontSize: "22px"}} >Admin Registration</p>
+                                <p className="text-center" style={{ fontWeight: 'bold', fontSize: "22px" }} >Admin Registration</p>
                                 <form className="mx-5">
                                     <div class="mb-3">
                                         <input type="number" class="form-control" name="id" id="id" value={0} onChange={handleInputs} hidden />
@@ -66,7 +68,7 @@ const AdminRegistration = () => {
                                     </div>
                                     <div class="mb-3">
                                         <label for="exampleInputEmail1" class="form-label">Email address</label>
-                                        <input type="email" value="" class="form-control" name="email" value={admin.email} onChange={handleInputs}  id="email" required />
+                                        <input type="email" value="" class="form-control" name="email" value={admin.email} onChange={handleInputs} id="email" required />
                                     </div>
                                     <div class="mb-3">
                                         <label for="exampleInputPassword1" class="form-label">Password</label>
@@ -74,8 +76,8 @@ const AdminRegistration = () => {
                                     </div>
                                     <div class="mb-3">
                                         <label for="exampleInputPassword1" class="form-label">Confirm Password</label>
-                                        <input type="password" value="" class="form-control" name="cpassword" id="cpassword" value={admin.cpassword} onChange={handleInputs} 
-                                        required />
+                                        <input type="password" value="" class="form-control" name="cpassword" id="cpassword" value={admin.cpassword} onChange={handleInputs}
+                                            required />
                                     </div>
                                     <button type="submit" class="btn btn-primary w-100" onClick={PostData}>Register</button>
                                 </form>

@@ -13,6 +13,7 @@ const Doctor = require("../model/doctorSchema");
 const Admin = require("../model/adminSchema");
 const Appointment = require("../model/appointmentSchema");
 const Review = require("../model/reviewSchema");
+const Forum = require("../model/forumSchema");
 
 router.get("/", (req, res) => {
   res.send(`Hello world from the server route.js`);
@@ -408,16 +409,6 @@ router.get("/getPatientData", async (req, res) => {
   }
 });
 
-// // FETCHING RATING FEATURE FROM DB
-// router.get('/getRatings', async (req, res) => {
-//     try {
-//        const doctorRatings = await Doctor.find();
-//        return res.json(doctorRatings);
-//     } catch(err) {
-//        return res.json(err);
-//     }
-// });
-
 // FETCHING DOCTOR WITH THE HELP OF ITS ID
 router.get("/doctorSearch/:id", async (req, res) => {
   try {
@@ -433,46 +424,6 @@ router.get("/doctorSearch/:id", async (req, res) => {
     console.log(error);
   }
 });
-
-// REVIEW AND RATING FEATURE
-// router.post('/doctorSearch/reviews/:id', async (req, res) => {
-//     const {rating, comment } = req.body;
-
-//     const doctorRate = await Doctor.findById(req.params.id);
-//     // console.log(doctorRate);
-
-//     if(doctorRate) {
-//         // const alreadyReviewed = doctorRate.reviews.find(
-//         //     (r) => r.user.toString() === req.user._id.toString()
-//         // )
-//         // console.log("Something", alreadyReviewed);
-
-//         // if (alreadyReviewed) {
-//         //     res.status(400).json({message: "Doctor already Reviewed"});
-//         // }
-
-//         // console.log(req.user.name);
-//         // console.log(req, "req data");
-
-//         const review = {
-//             rating: rating,
-//             comment,
-//         }
-
-//         doctorRate.reviews.push(review);
-//         // console.log(review);
-
-//         doctorRate.numReviews = doctorRate.reviews.length
-
-//         doctorRate.rating = doctorRate.reviews.reduce((acc, item) => item.rating + acc, 0) / doctorRate.reviews.length
-
-//         await doctorRate.save();
-//         res.status(201).json({message: 'Review added'});
-
-//     } else {
-//         res.status(404).json({message: "Doctor Not Found"});
-//     }
-// });
 
 // REVIEW DOCTOR
 router.post("/doctorSearch/reviews", async (req, res) => {
@@ -505,5 +456,38 @@ router.get("/getDoctorReview", async (req, res) => {
     return res.json(err);
   }
 });
+
+// FORUM DATA STORE
+router.post("/forum", async (req, res) => {
+    console.log(req.body);
+    const { title, introduction, imageLink, body, date } = req.body;
+  
+    if (!title || !introduction || !imageLink || !body || !date ) {
+      return res.status(422).json({ error: "Plz filled the field properly" });
+    }
+  
+    try {
+  
+      const forum = new Forum({
+        title, introduction, imageLink, body, date
+      });
+  
+      await forum.save();
+  
+      res.status(201).json({ message: "Blog Posted Successfully" });
+    } catch (error) {
+      console.log(error);
+    }
+  });
+
+  // FETCH FORUM DATA
+  router.get("/getForum", async (req, res) => {
+    try {
+      const forumData = await Forum.find();
+      return res.json(forumData);
+    } catch (err) {
+      return res.json(err);
+    }
+  });
 
 module.exports = router;

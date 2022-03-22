@@ -6,7 +6,7 @@ const LatestNewsCard = (props) => {
     return (
         <>
             <div className="news-card-bg m-3">
-                <div className="row">
+                <div className="row news-card-flexed">
                     <div className="col-md-5 news-cards-img">
                         <img src={props.imgsrc} alt="" />
                     </div>

@@ -15,6 +15,7 @@ import moximoxi from "../../Assets/Images/pharmacy-image/moximoxi.jpg";
 import kofarest from "../../Assets/Images/pharmacy-image/kofarest.jpg";
 
 import './Pharmacy.css';
+import Navbar from '../NavigationBar/Navbar';
 
 
 
@@ -78,6 +79,7 @@ const Pharmacy = () => {
 
     return (
         <>
+        <Navbar />
             <section id="pharmacy">
                 <div className="container-fluid">
                     <div className="row">

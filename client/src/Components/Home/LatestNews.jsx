@@ -15,13 +15,13 @@ const LatestNews = () => {
                 <div className="container-fluid">
                     <div className="row">
                         <div className="content-box-md">
-                            <div className="col-10 mx-auto">
+                            <div className="col-md-11 mx-auto">
+                            <SectionHeader title="Latest News" />
                                 <div className="row">
-                                    <SectionHeader title="Latest News" />
-                                    <div className="col-md-6 col-xs-5 mx-auto">
+                                    <div className="col-md-6 mx-auto">
                                         <LatestNewsCard title="Myth's around Covid" description="12 Vaccine Myth and facts that you should be aware of during the covid crisis. This is are lifesaver hacks." imgsrc={covidImg} author="Dr. Reshma Pandit" linkto="" />
                                     </div>
-                                    <div className="col-md-6 col-xs-5 mx-auto">
+                                    <div className="col-md-6 mx-auto">
                                         <LatestNewsCard title="Better Lifestyle" description="These are 3 life changing steps you need to take to ensure you have a better life style as well to entain life" imgsrc={dietImg} author="Dr. Rahul Desai" linkto="" />
                                     </div>
                                 </div>

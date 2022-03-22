@@ -1,24 +1,25 @@
 import React, { useState, useEffect, useContext } from "react";
 // import * as React from 'react';
-import {Slider} from "@material-ui/core";
+import { Slider } from "@material-ui/core";
 import "../../helper.css";
 import "./DoctorCard.css";
 import harshpatel from "../../Assets/Images/doctor-image/harsh-patel.png";
 import { NavLink, useHistory, useParams } from "react-router-dom";
 import Ratings from "./Ratings";
 import { UserContext } from "../../App";
+import Navbar from "../NavigationBar/Navbar";
 
 const DoctorCard = ({ search }) => {
 
   function valuetext(value) {
-      return `${value}°C`;
+    return `${value}°C`;
   }
 
   const { dispatch } = useContext(UserContext);
   const { match } = useParams;
 
   const history = useHistory();
-  
+
   // fetching data from db
   const [doctors, setDoctors] = useState([]);
 
@@ -35,7 +36,7 @@ const DoctorCard = ({ search }) => {
     mode: "",
   });
 
-  
+
 
   // MIDDLEWARE
   const callDoctorSearch = async () => {
@@ -51,7 +52,7 @@ const DoctorCard = ({ search }) => {
 
       const data = await res.json();
       console.log(data);
-      
+
 
       if (!res.status === 200) {
         const error = new Error(res.error);
@@ -66,7 +67,7 @@ const DoctorCard = ({ search }) => {
   // FETCHING DOCTOR
   const getData = async () => {
     try {
-        const res = await fetch("http://localhost:5000/getData", {
+      const res = await fetch("http://localhost:5000/getData", {
         method: "GET",
         headers: { "Content-Type": "application/json" },
       });
@@ -95,38 +96,38 @@ const DoctorCard = ({ search }) => {
   };
 
   // GETTING CURRENT USER WHICH IS LOGGED IN
-    const userLoggedIn = async () => {
-        try {
-            const res = await fetch('/getCurrentUser', {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-            });
+  const userLoggedIn = async () => {
+    try {
+      const res = await fetch('/getCurrentUser', {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json"
+        },
+      });
 
-            const data = await res.json();
-            // console.log("LOgin data aaja bhai",data);
+      const data = await res.json();
+      // console.log("LOgin data aaja bhai",data);
 
-            setAppointment({...appointment, pname:data.name });
+      setAppointment({ ...appointment, pname: data.name });
 
-            if(!res.status === 200) {
-                const error = new Error(res.error);
-                throw error;
-            }
+      if (!res.status === 200) {
+        const error = new Error(res.error);
+        throw error;
+      }
 
-        } catch (error) {
-            console.log(error);
-        }
+    } catch (error) {
+      console.log(error);
     }
+  }
 
   // BOOK APPOINTMENT
-    let name, value;
-    const handleInputs = (e) => {
-      name = e.target.name;
-      value = e.target.value;
+  let name, value;
+  const handleInputs = (e) => {
+    name = e.target.name;
+    value = e.target.value;
 
-      setAppointment({ ...appointment, [name]: value });
-    };
+    setAppointment({ ...appointment, [name]: value });
+  };
 
   const PostData = async (e) => {
     e.preventDefault();
@@ -163,14 +164,14 @@ const DoctorCard = ({ search }) => {
   };
 
 
-    
+
 
   useEffect(() => {
     userLoggedIn();
     callDoctorSearch();
     getData();
     inputEvent();
-    
+
   }, [search]);
 
   const context = filteredDoctors.length <= 0 ? doctors : filteredDoctors;
@@ -198,7 +199,7 @@ const DoctorCard = ({ search }) => {
 
   return (
     <>
-      <div className="">
+      <div className="mx-auto">
         <form method="GET">
           {context &&
             context.map((item, index) => (
@@ -220,12 +221,13 @@ const DoctorCard = ({ search }) => {
                     <p className="consultant-fees mb-0">
                       Fees: Rs. 1000 in Clinic
                     </p>
-                    
-                    <p className="mb-1 mt-1">
-                        <Ratings value={item.ratings} />
-                    </p>                    
+
+                    {/* <p className="mb-1 mt-1">
+                      <Ratings value={item.ratings} />
+                    </p> */}
                   </div>
                 </div>
+                <hr />
                 <div className="right-container my-auto mx-auto">
                   <p>Pricing: Free Booking</p>
                   <div className="btn-container mt-2">
@@ -409,7 +411,7 @@ const DoctorCard = ({ search }) => {
                     </div>
                   </div>
                   <div className="btn-container mt-2">
-                      <NavLink class="btn btn-primary" to={`/doctorsearch/${item._id}`}>Review Doctor</NavLink>
+                    <NavLink class="btn btn-primary" to={`/doctorsearch/${item._id}`}>Review Doctor</NavLink>
                   </div>
                 </div>
               </div>

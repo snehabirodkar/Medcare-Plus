@@ -3,6 +3,7 @@ import SectionHeader from '../SectionHeader';
 import { useHistory } from "react-router-dom";
 
 import "./appointment.css"
+import Navbar from '../NavigationBar/Navbar';
 
 const DoctorAppointment = () => {
     const history = useHistory();
@@ -64,10 +65,11 @@ const DoctorAppointment = () => {
         doctorMiddleware();
         getDoctorData();
     }, []);
-    var itemIndex =1;
+    var itemIndex = 1;
 
     return (
         <>
+            <Navbar />
             <section id="patient-appointment-section">
                 <form method="GET">
                     <div className="container-fluid">
@@ -86,11 +88,11 @@ const DoctorAppointment = () => {
                                                                     console.log("Map data", item);
                                                                 }
                                                                 if (item.doctor == localStorage.getItem("doctorName")) {
-                                                                    localStorage.setItem("prescriptionPatientName"+itemIndex, item.pname);
+                                                                    localStorage.setItem("prescriptionPatientName" + itemIndex, item.pname);
                                                                     itemIndex = itemIndex + 1;
                                                                     localStorage.setItem("prescriptionDoctorName", item.doctor);
                                                                     var hrefLink = "/doctor/prescription/" + item.pname;
-                                                                    return ( 
+                                                                    return (
                                                                         <>
                                                                             <div className="approval-card" key={index}>
                                                                                 <h4 className="patient-name mb-4">Doctor: {item.doctor}</h4>

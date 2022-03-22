@@ -1,0 +1,283 @@
+@media screen and (max-width: 1200px) {
+    .card-bg {
+        height: 344px;
+    }
+
+    /**
+        Doctor Search
+    ***/
+
+    .search-flexed {
+        display: inline-block;
+        width: 100%;
+    }
+
+    #doctor-search .col-md-9 {
+        width: 100% !important;
+    }
+
+    #doctor-search .col-md-3 {
+        width: 50% !important;
+        margin: auto;
+    }
+    /***
+        Patient login
+    **/
+    .login-image-container img{
+        height: 420px;
+    }
+    /*
+        Patient Dashboard
+    **/
+    .patient-dashboard{
+        display: block !important;
+    }
+    .patient-dashboard .w-70,
+    .patient-dashboard .w-27{
+        width: 100%;
+    }
+    .review-container{
+        padding: 20px 0;
+    }
+
+    /**
+        pharmacy
+    **/
+    .medicine-card{
+        width: auto;
+    }
+    #pharmacy .col-md-3{
+        width: auto;
+    }
+}
+
+
+@media screen and (max-width: 992px) {
+
+    .col-md-6 {
+        width: 100%;
+    }
+
+    #home-section .image-container {
+        display: none;
+    }
+
+    .about-img {
+        height: 70px;
+    }
+
+    .col-4 {
+        width: auto;
+    }
+
+    .news-card-flexed {
+        display: flex;
+    }
+
+    #about-section .col-md-7 {
+        padding: 24px 20px !important;
+    }
+
+    .content-box-md {
+        padding: 70px 0 !important;
+    }
+
+    /****
+    Doctor Search
+    ****/
+    .search-wrapper {
+        display: block;
+    }
+
+    .right-container {
+        width: 80%;
+        margin: 0 auto !important;
+        display: flex;
+        justify-content: flex-start;
+    }
+
+    .btn-container {
+        margin: 5px;
+    }
+
+    .right-container p {
+        padding-top: 15px;
+        margin-right: 80px;
+    }
+
+    .search-wrapper hr {
+        margin-top: 15px;
+        margin-bottom: 0;
+    }
+    /***
+        Login
+    ***/
+    .login-image-container{
+        display: none;
+    }
+    /**
+        pharmacy
+    **/
+    .medicine-card{
+        width: auto;
+    }
+    #pharmacy .row{
+        display: block;
+    }
+    #pharmacy .col-md-9{
+        width: 100%;
+    }
+    .medicine-cards{
+        justify-content: center;
+    }
+    /***
+    Forum
+    **/
+    #forumlist .container{
+        max-width: 830px;
+    }
+    #forumlist .col-md-10{
+        width: 100%;
+    }
+}
+
+
+@media screen and (max-width: 768px) {
+    #home-section .image-container {
+        display: none;
+    }
+
+    .h-7 {
+        height: 50% !important;
+    }
+
+    .card-bg {
+        height: auto;
+        margin: 5px;
+    }
+
+    .news-card-flexed .col-md-7,
+    .news-card-flexed .col-md-5 {
+        width: 50%;
+    }
+
+    .news-card-flexed {
+        display: flex;
+    }
+
+    .content-box-md {
+        padding: 60px 0 !important;
+    }
+
+    body {
+        overflow-x: hidden;
+    }
+
+    /**
+        pharmacy
+    **/
+    .medicine-card{
+        width: 45%;
+    }
+    #pharmacy .row{
+        display: block;
+    }
+    #pharmacy .col-md-9{
+        width: 100%;
+    }
+    .medicine-cards{
+        justify-content: center;
+    }
+}
+
+@media screen and (max-width: 500px) {
+
+    /*
+    *   Home Section
+    */
+    .h-7 {
+        height: 50vh !important;
+    }
+
+    #home-section .image-container {
+        display: none;
+    }
+
+    #about-section .card-bg {
+        margin: 5px;
+    }
+
+    #about-section .col-md-7 {
+        padding: 24px !important;
+    }
+
+    .content-box-md {
+        padding: 40px 0 !important;
+    }
+
+    .news-card-flexed .col-md-7,
+    .news-card-flexed .col-md-5 {
+        width: auto;
+    }
+
+    .news-cards-img img {
+        height: auto;
+    }
+
+    /**
+    Doctor Search
+    **/
+    .left-container {
+        display: block;
+    }
+
+    .doc-image img {
+        width: 100%;
+    }
+
+    .right-container {
+        display: block;
+        width: 100%;
+    }
+
+    .btn-container {
+        display: inline-block;
+    }
+
+    .search-wrapper .mx-auto {
+        margin: 5px 20px !important;
+    }
+
+    .left-container .px-5 {
+        padding: 0 !important;
+        padding-left: 20px !important;
+        padding-top: 10px !important;
+    }
+
+    #doctor-search .col-md-3 {
+        width: 93% !important;
+    }
+
+    .section-img .header h2 {
+        font-size: 22px;
+        text-align: center;
+    }
+
+    .section-img .header {
+        padding: 10px 70px;
+    }
+
+    /****
+    pharmacy
+    **/
+    .medicine-card{
+        width: 80%;
+    }
+
+    #forumlist .forum-wrapper{
+        display: block !important;
+    }
+    #forumlist .forum-card{
+        width: auto;
+    }
+}
