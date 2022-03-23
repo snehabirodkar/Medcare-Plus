@@ -118,7 +118,7 @@ const Navbar = () => {
                                 <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <li><a className="dropdown-item" href="/login">Patient Login</a></li>
                                     <li><a className="dropdown-item" href="/register"> Patient Register</a></li>
-                                    <li><hr class="dropdown-divider"/></li>
+                                    <li><hr class="dropdown-divider" /></li>
                                     <li><a class="dropdown-item" href="/patient/dashboard">Patient Dashboard</a></li>
                                 </ul>
                             </li>
@@ -130,7 +130,7 @@ const Navbar = () => {
                                 <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <li><a className="dropdown-item" href="/doctor/login">Doctor Login</a></li>
                                     <li><a className="dropdown-item" href="/doctor/register"> Doctor Register</a></li>
-                                    <li><hr class="dropdown-divider"/></li>
+                                    <li><hr class="dropdown-divider" /></li>
                                     <li><a class="dropdown-item" href="/doctor/dashboard">Doctor Dashboard</a></li>
                                 </ul>
                             </li>
@@ -142,7 +142,7 @@ const Navbar = () => {
                                 <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <li><a className="dropdown-item" href="/admin/login">Admin Login</a></li>
                                     {/* <li><a className="dropdown-item" href="/admin/register"> Admin Register</a></li> */}
-                                    <li><hr class="dropdown-divider"/></li>
+                                    <li><hr class="dropdown-divider" /></li>
                                     <li><a class="dropdown-item" href="/admin/doctorapproval">Approval Page</a></li>
                                 </ul>
                             </li>
@@ -195,10 +195,16 @@ const Navbar = () => {
                                 <NavLink className="nav-link" to="/pharmacy">Pharmacy</NavLink>
                             </li>
                             <li className="nav-item">
-                                <NavLink className="nav-link" to="/patient/dashboard">Patient Dashboard</NavLink>
+                                <NavLink className="nav-link" to="/doctorsearch">Doctor Search</NavLink>
                             </li>
                             <li className="nav-item">
-                                <NavLink className="nav-link" to="/doctor/dashboard">Doctor Dashboard</NavLink>
+                                <a className="nav-link" href="https://medcare-bloodbankstats.netlify.app/">Blood Bank</a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="/patient/dashboard/">Patient Dashboard</a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="/doctor/dashboard/">Doctor Dashboard</a>
                             </li>
                             {/* <li className="nav-item">
                                 <NavLink className="nav-link" to="/news">News(Beta)</NavLink>

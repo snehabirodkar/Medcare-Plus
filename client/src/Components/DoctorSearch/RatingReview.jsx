@@ -17,6 +17,12 @@ const RatingReview = ({ match }) => {
 
     // FETCHING DOCTOR DATA WITH THE HELP OF ID
     const [doctor, setDoctor] = useState([]);
+    localStorage.setItem("doctorName", doctor.name);
+    var doctorName = localStorage.getItem("doctorName");
+    console.log(doctorName);
+
+    var Lid = doctor._id;
+    var Lname = doctor.name;
 
     // CURRENT PATIENT/USER WHICH IS LOGGED IN
     const patientLoggedIn = async () => {
@@ -48,14 +54,11 @@ const RatingReview = ({ match }) => {
 
     var PatientName = localStorage.getItem("patientName");
 
-    var Lid = doctor._id;
-    var Lname = doctor.name;
 
     // ADDING REVIEWS
     const [reviews, setReviews] = useState({
-        pname: "",
-        doctorsId: "",
-        name: "",
+        pname: PatientName,
+        name: doctorName,
         rating: "",
         comment: "",
     });
@@ -100,7 +103,7 @@ const RatingReview = ({ match }) => {
     const addReviewHandler = async (e) => {
         e.preventDefault();
 
-        const { pname, doctorsId, name, rating, comment } = reviews;
+        const { pname, name, rating, comment } = reviews;
 
         const res = await fetch("/doctorSearch/reviews", {
             method: "POST",
@@ -109,7 +112,6 @@ const RatingReview = ({ match }) => {
             },
             body: JSON.stringify({
                 pname,
-                doctorsId,
                 name,
                 rating,
                 comment
@@ -188,12 +190,20 @@ const RatingReview = ({ match }) => {
                                         </div>
                                     </form>
                                     <form action="">
-                                        <div className="mb-3">
+                                        {/* <div className="mb-3">
                                             <label for="InputLocation" class="form-label">Doctor ID</label>
                                             <select name="doctorsId" id="doctorsId" value={reviews.doctorsId} onChange={handleInputs} class="form-control" >
                                                 <option value="--select--">-- Select ID --</option>
                                                 <option value={Lid}>{Lid}</option>
                                             </select>
+                                        </div> */}
+                                        <div className="mb-3">
+                                            <label for="InputLocation" class="form-label">Patient Name</label>
+                                            {/* <select name="pname" id="pname" value={reviews.pname} onChange={handleInputs} class="form-control">
+                                                <option value="--select--">-- Select User Name --</option>
+                                                <option value={PatientName}>{PatientName}</option>
+                                            </select> */}
+                                                <input disabled type="text" class="form-control" name="" id="InputLocation" value={PatientName} onChange={handleInputs}/>
                                         </div>
                                         <div className="mb-3">
                                             <label for="InputLocation" class="form-label">Doctor Name</label>
@@ -201,22 +211,16 @@ const RatingReview = ({ match }) => {
                                                 <option value="--select--">-- Select Doctors --</option>
                                                 <option value={Lname}>{Lname}</option>
                                             </select>
-                                        </div>
-                                        <div className="mb-3">
-                                            <label for="InputLocation" class="form-label">Patient Name</label>
-                                            <select name="pname" id="pname" value={reviews.pname} onChange={handleInputs} class="form-control">
-                                                <option value="--select--">-- Select User Name --</option>
-                                                <option value={PatientName}>{PatientName}</option>
-                                            </select>
+                                            {/* <input type="text" class="form-control" name="" id="InputLocation" value={doctor.name} onChange={handleInputs}/> */}
                                         </div>
 
                                         <div class="mb-3">
                                             <label for="InputRating" class="form-label">Rating</label>
-                                            <input type="number" class="form-control" id="rating" placeholder="eg: 3 " name="rating" value={reviews.rating} onChange={handleInputs} min="1" max="5" />
+                                            <input type="number" class="form-control" id="rating" placeholder="Please Rate between 1 to 5 " name="rating" value={reviews.rating} onChange={handleInputs} min="1" max="5"  />
                                         </div>
                                         <div class="mb-3">
                                             <label for="InputLocation" class="form-label">Review</label>
-                                            <textarea type="text" class="form-control" name="comment" id="comment" value={reviews.comment} onChange={handleInputs} />
+                                            <textarea type="text" placeholder="Please write a review here" class="form-control" name="comment" id="comment" value={reviews.comment} onChange={handleInputs} />
                                         </div>
                                         <button type="submit" class="btn btn-primary" id="rate" name="rate" onClick={addReviewHandler}>Add Review</button>
                                     </form>
@@ -228,7 +232,8 @@ const RatingReview = ({ match }) => {
                                             <hr />
                                             {
                                                 fetchReview.map((item, index) => {
-                                                    if (item.doctorsId == Lid) {
+                                                   console.log(item.name);
+                                                    if (item.name == Lname) {
                                                         return (
                                                             <>
 

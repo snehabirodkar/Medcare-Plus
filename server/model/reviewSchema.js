@@ -5,17 +5,15 @@ const reviewSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    doctorsId: {
-        type: String,
-        required: true
-    },
     name: {
         type: String,
         required: true
     },
     rating: {
         type: Number,
-        required: true
+        required: true,
+        min: 0,
+        max: 5
     },
     comment: {
         type: String,

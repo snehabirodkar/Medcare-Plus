@@ -202,8 +202,11 @@ const DoctorCard = ({ search }) => {
       <div className="mx-auto">
         <form method="GET">
           {context &&
-            context.map((item, index) => (
-              <div className="search-wrapper m-3 mb-5">
+            context.map((item, index) => {
+                var linkToAppointment = "/doctorsearch/bookappointment/" + item._id
+                return(
+                  <>
+                  <div className="search-wrapper m-3 mb-5">
                 <div className="left-container">
                   <div className="doc-image">
                     <img src={harshpatel} alt="" />
@@ -231,14 +234,17 @@ const DoctorCard = ({ search }) => {
                 <div className="right-container my-auto mx-auto">
                   <p>Pricing: Free Booking</p>
                   <div className="btn-container mt-2">
-                    <button
+                    <NavLink class="btn btn-primary" to={linkToAppointment}>Book an Appointment</NavLink>
+                  </div>
+                  <div className="btn-container mt-2">
+                    {/* <button
                       type="button"
                       class="btn btn-primary"
                       data-bs-toggle="modal"
                       data-bs-target="#exampleModal"
                     >
                       Book an Appointment
-                    </button>
+                    </button> */}
                     <div
                       className="modal fade"
                       id="exampleModal"
@@ -414,8 +420,11 @@ const DoctorCard = ({ search }) => {
                     <NavLink class="btn btn-primary" to={`/doctorsearch/${item._id}`}>Review Doctor</NavLink>
                   </div>
                 </div>
-              </div>
-            ))}
+                  </div>
+                  </>
+                )
+              
+              })}
         </form>
       </div>
     </>

@@ -319,7 +319,7 @@ router.delete("/delete", async (req, res) => {
 
 // BOOK APPOINTMENT
 router.post("/appointment", async (req, res) => {
-//   console.log(req.body);
+  console.log(req.body);
   const { pname, doctor, priority, date, time, mode } = req.body;
 
   if (!pname || !doctor || !priority || !date || !time || !mode) {
@@ -427,18 +427,23 @@ router.get("/doctorSearch/:id", async (req, res) => {
 
 // REVIEW DOCTOR
 router.post("/doctorSearch/reviews", async (req, res) => {
-  const { pname, doctorsId, name, rating, comment } = req.body;
+  const { pname, name, rating, comment } = req.body;
 
-  if (!pname || !doctorsId || !name || !rating || !comment) {
+  console.log(req.body);
+
+  if (!pname || !name || !rating || !comment) {
     return res.status(422).json({ error: "Plz filled the field properly" });
+  }
+  if(rating > 5) {
+    return res.status(422).json({ error: "Plz Rate properly" });
   }
 
   try {
     const ratingExist = await Review.findOne({ rating: rating });
     const commentExist = await Review.findOne({ comment: comment });
 
-    const review = new Review({ pname, doctorsId, name, rating, comment });
-
+    const review = new Review({ pname, name, rating, comment });
+    console.log(review);
     await review.save();
 
     res.status(200).json({ message: "You have Reviewed Doctor Successfully" });
@@ -487,6 +492,22 @@ router.post("/forum", async (req, res) => {
       return res.json(forumData);
     } catch (err) {
       return res.json(err);
+    }
+  });
+
+  // FETCHING DOCTOR APPOINTMENT WITH THE HELP OF ITS ID
+  router.get("/doctorSearch/bookAppointment/:id", async (req, res) => {
+    try {
+      const doctorRate = await Doctor.findById(req.params.id);
+      // console.log(doctorRate);
+
+      if (doctorRate) {
+        res.json(doctorRate);
+      } else {
+        res.status(404).json({ message: "Doctor not found" });
+      }
+    } catch (error) {
+      console.log(error);
     }
   });
 

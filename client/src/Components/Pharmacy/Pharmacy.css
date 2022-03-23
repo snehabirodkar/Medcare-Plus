@@ -30,6 +30,13 @@
     border-radius: 10px;
 }
 
+.medicine-category-card{
+    background-color: rgba(33, 132, 187, 0.2);
+    border: solid 1px rgba(33, 132, 187, 1);
+    padding: 10px;
+    border-radius: 10px;
+}
+
 @media screen and (min-width: 1366px) {
     /* body {
       background-color: lightgreen !important;

@@ -22,7 +22,7 @@ const DoctorRegistration = () => {
         setDoctor({ ...doctor, [name]: value });
     }
     const submitMail = (e) => {
-        alert("This is submit mail !");
+        // alert("This is submit mail !");
         e.preventDefault();
         console.log(e.target);
         emailjs.sendForm('service_iahndb7', 'template_euub6ik', e.target, 'user_zfai6BIAv43mG08ahqiQr').then(res => {
