@@ -110,43 +110,7 @@ const Navbar = () => {
             return (
                 <>
                     <div className="d-flex justify-content-around me-5 pe-5">
-                        <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                            <li className="nav-item dropdown mx-2">
-                                <a className="nav-link dropdown-toggle p-2" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Patient
-                                </a>
-                                <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><a className="dropdown-item" href="/login">Patient Login</a></li>
-                                    <li><a className="dropdown-item" href="/register"> Patient Register</a></li>
-                                    <li><hr class="dropdown-divider" /></li>
-                                    <li><a class="dropdown-item" href="/patient/dashboard">Patient Dashboard</a></li>
-                                </ul>
-                            </li>
-
-                            <li className="nav-item dropdown mx-2">
-                                <a className="nav-link dropdown-toggle p-2" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Doctor
-                                </a>
-                                <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><a className="dropdown-item" href="/doctor/login">Doctor Login</a></li>
-                                    <li><a className="dropdown-item" href="/doctor/register"> Doctor Register</a></li>
-                                    <li><hr class="dropdown-divider" /></li>
-                                    <li><a class="dropdown-item" href="/doctor/dashboard">Doctor Dashboard</a></li>
-                                </ul>
-                            </li>
-
-                            <li className="nav-item dropdown mx-2">
-                                <a className="nav-link dropdown-toggle p-2" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Admin
-                                </a>
-                                <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><a className="dropdown-item" href="/admin/login">Admin Login</a></li>
-                                    {/* <li><a className="dropdown-item" href="/admin/register"> Admin Register</a></li> */}
-                                    <li><hr class="dropdown-divider" /></li>
-                                    <li><a class="dropdown-item" href="/admin/doctorapproval">Approval Page</a></li>
-                                </ul>
-                            </li>
-                        </ul>
+                        <NavLink to="/medcare/login" className="btn btn-primary">Medcare Signin</NavLink>
                     </div>
                 </>
             )
@@ -200,24 +164,28 @@ const Navbar = () => {
                             <li className="nav-item">
                                 <a className="nav-link" href="https://medcare-bloodbankstats.netlify.app/">Blood Bank</a>
                             </li>
-                            <li className="nav-item">
+                            {/* <li className="nav-item">
                                 <a className="nav-link" href="/patient/dashboard/">Patient Dashboard</a>
                             </li>
                             <li className="nav-item">
                                 <a className="nav-link" href="/doctor/dashboard/">Doctor Dashboard</a>
-                            </li>
+                            </li> */}
                             {/* <li className="nav-item">
                                 <NavLink className="nav-link" to="/news">News(Beta)</NavLink>
                             </li> */}
-                            {/* <li className="nav-item dropdown mx-2">
+                            <li className="nav-item dropdown mx-2">
                                 <a className="nav-link dropdown-toggle p-2" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Appointment
+                                    Dashboard
                                 </a>
                                 <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><a className="dropdown-item" href="/appointment/patient">Patient Appointment</a></li>
-                                    <li><a className="dropdown-item" href="/appointment/doctor"> Doctor Appointment</a></li>
+                                    <li className="nav-item">
+                                        <a className="nav-link" href="/patient/dashboard/">Patient Dashboard</a>
+                                    </li>
+                                    <li className="nav-item">
+                                        <a className="nav-link" href="/doctor/dashboard/">Doctor Dashboard</a>
+                                    </li>
                                 </ul>
-                            </li> */}
+                            </li>
                         </ul>
                         <RenderMenu />
                     </div>

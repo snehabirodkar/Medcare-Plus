@@ -209,7 +209,7 @@ const DoctorCard = ({ search }) => {
                   <div className="search-wrapper m-3 mb-5">
                 <div className="left-container">
                   <div className="doc-image">
-                    <img src={harshpatel} alt="" />
+                    <img src={item.image} alt="" />
                   </div>
                   <div className="details px-5 my-auto pt-2">
                     <h4 className="doctor-name">{item.name}</h4>
@@ -221,9 +221,9 @@ const DoctorCard = ({ search }) => {
                       Designation: {item.designation}
                     </p>
                     <p className="location">Location/office: {item.location}</p>
-                    <p className="consultant-fees mb-0">
+                    {/* <p className="consultant-fees mb-0">
                       Fees: Rs. 1000 in Clinic
-                    </p>
+                    </p> */}
 
                     {/* <p className="mb-1 mt-1">
                       <Ratings value={item.ratings} />

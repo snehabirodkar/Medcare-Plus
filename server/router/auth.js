@@ -14,6 +14,7 @@ const Admin = require("../model/adminSchema");
 const Appointment = require("../model/appointmentSchema");
 const Review = require("../model/reviewSchema");
 const Forum = require("../model/forumSchema");
+const Prescription = require("../model/prescriptionSchema");
 
 router.get("/", (req, res) => {
   res.send(`Hello world from the server route.js`);
@@ -22,9 +23,9 @@ router.get("/", (req, res) => {
 // PATIENT REGISTRATION
 router.post("/register", async (req, res) => {
   // console.log(req.body);
-  const { name, email, password, cpassword } = req.body;
+  const { name, aadhar, age, email, password, cpassword } = req.body;
 
-  if (!name || !email || !password || !cpassword) {
+  if (!name || !aadhar || !age || !email || !password || !cpassword) {
     return res.status(422).json({ error: "Plz filled the field properly" });
   }
 
@@ -33,8 +34,18 @@ router.post("/register", async (req, res) => {
     if (emailExist) {
       return res.status(422).json({ error: "Email already Exist" });
     }
+    if (age < 18) {
+      return res.status(422).json({ error: "Age is less than 18" });
+    }
 
-    const patient = new Patient({ name, email, password, cpassword });
+    const patient = new Patient({
+      name,
+      aadhar,
+      age,
+      email,
+      password,
+      cpassword,
+    });
 
     await patient.save();
 
@@ -88,11 +99,14 @@ router.post("/doctorRegister", async (req, res) => {
   const {
     user,
     name,
+    aadhar,
+    age,
     email,
     designation,
     experience,
     phone,
     location,
+    image,
     password,
     approved,
     numReviews,
@@ -100,11 +114,14 @@ router.post("/doctorRegister", async (req, res) => {
 
   if (
     !name ||
+    !aadhar ||
+    !age ||
     !email ||
     !designation ||
     !experience ||
     !phone ||
     !location ||
+    !image ||
     !password
   ) {
     return res.status(422).json({ error: "Plz filled the field properly" });
@@ -120,15 +137,21 @@ router.post("/doctorRegister", async (req, res) => {
     if (phoneExist) {
       return res.status(422).json({ error: "Phone already Exist" });
     }
+    if (age < 18) {
+      return res.status(422).json({ error: "Age is less than 18" });
+    }
 
     const doctor = new Doctor({
       user,
       name,
+      aadhar,
+      age,
       email,
       designation,
       experience,
       phone,
       location,
+      image,
       password,
       approved,
       numReviews,
@@ -327,30 +350,30 @@ router.post("/appointment", async (req, res) => {
   }
 
   try {
-    const docExist = await Appointment.findOne({ 
-        doctor: req.body.doctor
-    })
-    const timeExist = await Appointment.findOne({ 
-        time: req.body.time
-    })
-    const dateExist = await Appointment.findOne({ 
-        date: req.body.date
-    })
-
-    if( docExist  && dateExist  &&  timeExist ) {
-        res.status(422).json({error: "Please Select another slot!"})
-    }
-
-    const appointment = new Appointment({
-      pname,
-      doctor,
-      priority,
-      date,
-      time,
-      mode,
+    const docExist = await Appointment.findOne({
+      doctor: req.body.doctor,
+    });
+    const timeExist = await Appointment.findOne({
+      time: req.body.time,
+    });
+    const dateExist = await Appointment.findOne({
+      date: req.body.date,
     });
 
-    await appointment.save();
+    if (docExist && dateExist && timeExist) {
+      res.status(422).json({ error: "Please Select another slot!" });
+    }else{
+      const appointment = new Appointment({
+        pname,
+        doctor,
+        priority,
+        date,
+        time,
+        mode,
+      });
+  
+      await appointment.save();
+    }
 
     res.status(201).json({ message: "Appointment Booked Successfully" });
   } catch (error) {
@@ -434,7 +457,7 @@ router.post("/doctorSearch/reviews", async (req, res) => {
   if (!pname || !name || !rating || !comment) {
     return res.status(422).json({ error: "Plz filled the field properly" });
   }
-  if(rating > 5) {
+  if (rating > 5) {
     return res.status(422).json({ error: "Plz Rate properly" });
   }
 
@@ -464,51 +487,90 @@ router.get("/getDoctorReview", async (req, res) => {
 
 // FORUM DATA STORE
 router.post("/forum", async (req, res) => {
-    console.log(req.body);
-    const { title, introduction, imageLink, body, date } = req.body;
-  
-    if (!title || !introduction || !imageLink || !body || !date ) {
-      return res.status(422).json({ error: "Plz filled the field properly" });
-    }
-  
-    try {
-  
-      const forum = new Forum({
-        title, introduction, imageLink, body, date
-      });
-  
-      await forum.save();
-  
-      res.status(201).json({ message: "Blog Posted Successfully" });
-    } catch (error) {
-      console.log(error);
-    }
-  });
+  console.log(req.body);
+  const { title, introduction, imageLink, body, date } = req.body;
 
-  // FETCH FORUM DATA
-  router.get("/getForum", async (req, res) => {
-    try {
-      const forumData = await Forum.find();
-      return res.json(forumData);
-    } catch (err) {
-      return res.json(err);
-    }
-  });
+  if (!title || !introduction || !imageLink || !body || !date) {
+    return res.status(422).json({ error: "Plz filled the field properly" });
+  }
 
-  // FETCHING DOCTOR APPOINTMENT WITH THE HELP OF ITS ID
-  router.get("/doctorSearch/bookAppointment/:id", async (req, res) => {
-    try {
-      const doctorRate = await Doctor.findById(req.params.id);
-      // console.log(doctorRate);
+  try {
+    const forum = new Forum({
+      title,
+      introduction,
+      imageLink,
+      body,
+      date,
+    });
 
-      if (doctorRate) {
-        res.json(doctorRate);
-      } else {
-        res.status(404).json({ message: "Doctor not found" });
-      }
-    } catch (error) {
-      console.log(error);
+    await forum.save();
+
+    res.status(201).json({ message: "Blog Posted Successfully" });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+// FETCH FORUM DATA
+router.get("/getForum", async (req, res) => {
+  try {
+    const forumData = await Forum.find();
+    return res.json(forumData);
+  } catch (err) {
+    return res.json(err);
+  }
+});
+
+// FETCHING DOCTOR APPOINTMENT WITH THE HELP OF ITS ID
+router.get("/doctorSearch/bookAppointment/:id", async (req, res) => {
+  try {
+    const doctorRate = await Doctor.findById(req.params.id);
+    // console.log(doctorRate);
+
+    if (doctorRate) {
+      res.json(doctorRate);
+    } else {
+      res.status(404).json({ message: "Doctor not found" });
     }
-  });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+// PRESCRIPTION DATA STORE
+router.post("/prescription", async (req, res) => {
+  console.log(req.body);
+  const { dname, pname,  date, diagnosis, prescriptions } = req.body;
+
+  if (!diagnosis || !prescriptions) {
+    return res.status(422).json({ error: "Plz filled the field properly" });
+  }
+
+  try {
+    const prescriptionPage = new Prescription({
+        dname,
+        pname,      
+        date,
+        diagnosis,
+        prescriptions
+    });
+
+    await prescriptionPage.save();
+
+    res.status(201).json({ message: "Blog Posted Successfully" });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+// FETCHING PRESCRIPTION DATA
+router.get("/getPrescription", async (req, res) => {
+  try {
+    const prescriptionData = await Prescription.find();
+    return res.json(prescriptionData);
+  } catch (err) {
+    return res.json(err);
+  }
+});
 
 module.exports = router;

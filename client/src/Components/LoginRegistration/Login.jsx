@@ -39,7 +39,7 @@ const Login = () => {
             window.alert("Login Successful");
             console.log("Login Successful");
             document.cookie = "isPlogin=true";
-            history.push('/');
+            history.push('/patient/dashboard');
         }
     }
 

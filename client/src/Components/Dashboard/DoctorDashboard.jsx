@@ -20,6 +20,8 @@ const DoctorDashboard = () => {
     // CURRENT USER LOGGED IN
     const [currentUser, setCurrentUser] = useState([]);
 
+    const [prescription, setPrescription] = useState([]);
+
     // MIDDLEWARE
     const doctorMiddleware = async () => {
         try {
@@ -73,6 +75,26 @@ const DoctorDashboard = () => {
         }
     };
 
+    // FETCHING PRESCRIPTION DATA
+    const getPrescrptionData = async () => {
+        try {
+            const res = await fetch("/getPrescription", {
+                method: "GET",
+                headers: { "Content-Type": "application/json" },
+            });
+            const getPrescriptions = await res.json();
+            //   console.log("NM", getPrescriptions);
+            setPrescription(getPrescriptions);
+
+            if (!res.status === 200) {
+                const error = new Error(res.error);
+                throw error;
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
     // FETCHING REVIEW
     const getDoctorReview = async () => {
         try {
@@ -97,6 +119,7 @@ const DoctorDashboard = () => {
         doctorMiddleware();
         getDoctorData();
         getDoctorReview();
+        getPrescrptionData();
     }, []);
 
     return (
@@ -176,6 +199,11 @@ const DoctorDashboard = () => {
                             <li className="nav-item">
                                 <NavLink className="nav-link" to="/forum">
                                     Medcare Plus Forum
+                                </NavLink>
+                            </li>
+                            <li className="nav-item">
+                                <NavLink className="nav-link" to="/doctor/dashboard">
+                                    Doctor Dashboard
                                 </NavLink>
                             </li>
                         </ul>
@@ -271,6 +299,44 @@ const DoctorDashboard = () => {
                                 }
 
                             </div>
+                        </div>
+                        <h3 className="mb-4 mt-4">Medical Records (Medcare Archives)</h3>
+                        <hr  className="mb-4"/>
+                        <div className="">
+                            {
+                                prescription.map((item, index) => {
+                                    if (currentUser.name == item.dname) {
+                                        console.log(item)
+                                        return (
+                                            <>
+                                                <div className="appointment-card-single">
+                                                    <div className="d-flex justify-content-between">
+                                                        <div className="appointment-card-left w-70">
+                                                            <p>
+                                                                <b>Patient: </b> {item.pname}
+                                                            </p>
+                                                            <p>
+                                                                <b>Diagnosis: </b> {item.diagnosis}
+                                                            </p>
+                                                            <p>
+                                                                <b>Prescription: </b>{item.prescriptions}
+                                                            </p>
+                                                            <p>
+                                                                <b>Diagnosed By: </b>{item.dname}
+                                                            </p>
+                                                        </div>
+                                                        <div className="appointment-card-right">
+                                                            <p>
+                                                            Date of Consultancy: <b>{item.date}</b>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </>
+                                        )
+                                    }
+                                })
+                            }
                         </div>
                     </div>
                 </div>

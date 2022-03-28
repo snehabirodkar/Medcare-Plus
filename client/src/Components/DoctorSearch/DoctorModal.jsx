@@ -187,9 +187,9 @@ console.log(doctor);
                                             </select>
                                         </div>
                                         <div class="mb-3">
-                                            <label for="selectpriority" class="form-label">Priority Select</label>
+                                            <label for="selectpriority" class="form-label">Type of Appointment</label>
                                             <select class="form-select" aria-label="Doctor Select" id="priority" name="priority" value={appointment.priority} onChange={handleInputs} >
-                                                <option selected>Select the Priority</option>
+                                                <option selected>Select the Type</option>
                                                 <option value="Follow Up">Follow Up</option>
                                                 <option value="Initial Checkup">Initial Checkup</option>
                                                 <option value="Brief Checkup">Brief Checkup</option>

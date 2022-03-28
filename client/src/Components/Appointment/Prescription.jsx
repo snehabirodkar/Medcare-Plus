@@ -1,17 +1,30 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams,useHistory } from "react-router-dom";
 import SectionHeader from "../SectionHeader";
 import emailjs from 'emailjs-com';
 import Navbar from "../NavigationBar/Navbar";
 
 const Prescription = () => {
 
+    var email = "";
     const param = useParams();
     console.log(param);
     var doctorName = localStorage.getItem("cuser");
 
+    var today = new Date();
+    today = today.toDateString();
+    // console.log(today);
+
+    const history = useHistory();
+
     const [patientData, setPatientData] = useState([]);
 
+    // ADDING PRESCRIPTION IN DB
+    const [prescriptionData, setPrescriptionData] = useState({
+        dname: doctorName, pname: param.patientname, date: today, diagnosis: "", 
+        prescriptions: ""
+    });
+    
     // FETCHING PATIENT
     const getData = async () => {
         try {
@@ -32,6 +45,53 @@ const Prescription = () => {
         }
     };
 
+    // ADDING PRESCRIPTION IN DATABASE
+    let name, value;
+    const handleInputs = (e) => {
+        name = e.target.name;
+        value = e.target.value;
+        console.log(name);
+        console.log(value);
+
+        setPrescriptionData({ ...prescriptionData, [name]: value });
+    };
+
+    const PostData = async (e) => {
+        e.preventDefault();
+    
+        const { dname, pname, date, diagnosis, prescriptions } = prescriptionData;
+    
+        const res = await fetch("/prescription", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            dname,
+            pname,    
+            date,
+            diagnosis,
+            prescriptions
+          }),
+        });
+    
+        const data = await res.json();
+        console.log(data);
+    
+        if (res.status === 422 || !data) {
+          window.alert("Invalid Details");
+          console.log("Invalid Details");
+        } else {
+            submitPrescription(e);
+          window.alert("Prescription Sent Successfully");
+          console.log("Prescription Sent Successfully");
+    
+          history.push("/doctor/dashboard");
+        }
+    };
+
+    
+   
     useEffect(() => {
         getData();
     }, []);
@@ -43,57 +103,11 @@ const Prescription = () => {
         e.preventDefault();
         console.log(e.target);
         emailjs.sendForm('service_iahndb7', 'template_tlgrcai', e.target, 'user_zfai6BIAv43mG08ahqiQr').then(res => {
-            alert("Prescription Sent !");
+            // alert("Prescription Sent !");
             console.log(res);
         }).catch(err => console.log(err));
     }
 
-
-    // const submitPrescription = (e) => {
-    //     e.preventDefault();
-    //     const Dname = doctorName;
-    //     const Pname = param.patientname;
-    //     const email = document.getElementById('patientEmail').value;
-    //     const diagnosis = document.getElementById('patientDiagnosis').value;
-    //     const prescription = document.getElementById('patientDiagnosis').value;
-    //     // sendEmailPrescription(Dname, Pname, email, diagnosis, prescription);
-    // }
-
-    // const sendEmailPrescription = (Dname, Pname, email, diagnosis, prescription) => {
-    //     Email.send({
-    //         Host: "smtp.gmail.com",
-    //         Username: "contact.medcareplus@gmail.com",
-    //         Password: "nuurinkxxvkabrfj",
-    //         To: email,
-    //         From: "contact.medcareplus@gmail.com",
-    //         Subject: `${Dname} from MedcarePlus has sent you your prescription`,
-    //         Body: `<h1>Hey ${Pname},</h1><h3>${Dname} has sent you your prescription!<h3/><p>Here are the details:</p><br/><b>Diagnosis's:</b> ${diagnosis}<br/> <b>Prescription:</b> ${prescription}<br/>`
-    //     }).then((message) => alert("Mail Sent successfully"));
-    // }
-
-    // document.querySelector(".contact-designer").addEventListener("submit", submitMailDesigner);
-
-    // function submitMailDesigner(e) {
-    //   e.preventDefault();
-    //   const name = document.querySelector(".mail-name").value;
-    //   const email = document.querySelector(".mail-email").value;
-    //   const phone = document.querySelector(".mail-phone").value;
-    //   const message = document.querySelector(".mail-message").value;
-    //   const designer = document.querySelector(".mail-designer-intrested").value;
-    //   sendEmailDesigner(name, email, phone, message, designer);
-    // }
-
-    // function sendEmailDesigner(name, email, phone, message, designer) {
-    //   Email.send({
-    //     Host: "smtp.gmail.com",
-    //     Username: "contact.propakith@gmail.com",
-    //     Password: "shpbbkamusfikjwx",
-    //     To: 'contact.propakith@gmail.com',
-    //     From: "contact.propakith@gmail.com",
-    //     Subject: `${name} sent you a query for designer`,
-    //     Body: `<h1>Hey Propakith,</h1><h3>${name} wants to get in touch!<h3/><p>Here are the details:</p><br/><b>Client's Name:</b> ${name}<br/> <b>Client's Email:</b> ${email}<br/> <b>Client's Phone Number:</b> ${phone}<br/><b>Client's Interest in Designer:</b> ${designer} <br/><b>Client's Message:</b> ${message}`
-    //   }).then((message) => alert("Mail Sent successfully"));
-    // }
 
     return (
         <>
@@ -104,18 +118,20 @@ const Prescription = () => {
                         <SectionHeader title="Doctor's Prescription" />
                         <div className="row">
                             <div className="col-md-8 mx-auto">
-                                <form onSubmit={submitPrescription}>
+                                <form onSubmit={PostData }>
                                     <div className="mb-2">
                                         <label for="doctorName" className="pb-2">Doctor Name</label>
-                                        <input name="doctorname" type="text" className="form-control" id="doctorName" value={doctorName} />
+                                        <input name="doctorname" type="text" className="form-control" id="doctorName" value={doctorName}  />
                                     </div>
                                     <div className="mb-2">
                                         <label for="patientName" className="pb-2">Patient Name</label>
                                         <input name="patientname" type="text" className="form-control" id="patientName" value={param.patientname} />
                                     </div>
+                                    
                                     {
                                         patientData.map((item, index) => {
                                             if (item.name == param.patientname) {
+                                                email = item.email;
                                                 return (
                                                     <>
                                                         <div className="mb-2">
@@ -128,14 +144,21 @@ const Prescription = () => {
                                         })
                                     }
                                     <div className="mb-2">
-                                        <label for="patientDiagnosis" className="pb-2">Diagnosis</label>
-                                        <textarea name="patientdiagnosis" id="patientDiagnosis" className="form-control" />
+                                        <label for="patientName" className="pb-2">Date</label>
+                                        <input disabled name="patientname" type="text" className="form-control" id="patientName" value={today} />
                                     </div>
                                     <div className="mb-2">
-                                        <label for="patientPrescription" className="pb-2">Prescription</label>
-                                        <textarea name="patientprescription" id="patientPrescription" className="form-control" />
+                                        <label for="diagnosis" className="pb-2">Diagnosis</label>
+                                        <textarea name="diagnosis" id="diagnosis" className="form-control" value={prescriptionData.diagnosis}
+                                            onChange={handleInputs}
+                                        />
                                     </div>
-                                    <input id="prescription" type="submit" className="btn btn-primary w-100" value="Give Prescription" />
+                                    <div className="mb-2">
+                                        <label for="prescriptions" className="pb-2">Prescription</label>
+                                        <textarea name="prescriptions" id="prescriptions" className="form-control" onChange={handleInputs} value={prescriptionData.prescriptions}
+                                        />
+                                    </div>
+                                    <input id="prescription" type="submit" className="btn btn-primary w-100" value="Give Prescription"/>
                                 </form>
                             </div>
                         </div>

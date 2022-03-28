@@ -15,7 +15,7 @@ const LatestNewsCard = (props) => {
                         <p>{props.description}</p>
                         <p style={{fontWeight:"bold"}}>{props.author}</p>
                         <div className="btn-container mt-4">
-                            <NavLink className="c-btn c-btn-primary" to="">Read More</NavLink>
+                            <NavLink className="btn btn-primary" to="">Read More</NavLink>
                         </div>
                     </div>
                 </div>

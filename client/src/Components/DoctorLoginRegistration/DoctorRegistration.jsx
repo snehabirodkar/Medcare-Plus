@@ -9,7 +9,7 @@ const DoctorRegistration = () => {
 
     const history = useHistory();
     const [doctor, setDoctor] = useState({
-        name: "", email: "", designation: "", experience: "", phone: "", location: "", password: "", approved: 0, numReviews: 0,
+        name: "", aadhar: "", age: "", email: "", designation: "", experience: "", phone: "", location: "", image:"", password: "", approved: 0, numReviews: 0,
     });
 
     let name, value;
@@ -31,10 +31,9 @@ const DoctorRegistration = () => {
         }).catch(err => console.log(err));
     }
     const PostData = async (e) => {
-        submitMail(e);
         e.preventDefault();
 
-        const { name, email, designation, experience, phone, location, password, approved, numReviews } = doctor;
+        const { name, aadhar, age, email, designation, experience, phone, location, image, password, approved, numReviews } = doctor;
 
         const res = await fetch('/doctorRegister', {
             method: "POST",
@@ -42,16 +41,17 @@ const DoctorRegistration = () => {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                name, email, designation, experience, phone, location, password, approved, numReviews
+                name, aadhar, age, email, designation, experience, phone, location, image, password, approved, numReviews
             })
         });
 
         const data = await res.json();
 
         if (res.status === 422 || !data) {
-            window.alert("Invalid Registration");
+            window.alert("Invalid Registration Details");
             console.log("Invalid Registration");
         } else {
+            submitMail(e);
             window.alert("Registration Successful");
             console.log("Registration Successful");
 
@@ -86,6 +86,16 @@ const DoctorRegistration = () => {
                                                     name="name" id="name" value={doctor.name} onChange={handleInputs} placeholder="Example: Dr. Amit Janna" />
                                             </div>
                                             <div class="mb-3">
+                                                <label for="exampleInputAadhar" class="form-label">Aadhar Number</label>
+                                                <input type="text" class="form-control" name="aadhar" id="aadhar" autoComplete="off" placeholder="1223 1234 1234"
+                                                    value={doctor.aadhar} onChange={handleInputs} required />
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="exampleInputAge" class="form-label">Age</label>
+                                                <input type="text" class="form-control" name="age" id="age" autoComplete="off" placeholder="Enter Age > 18"
+                                                    value={doctor.age} onChange={handleInputs} required />
+                                            </div>
+                                            <div class="mb-3">
                                                 <label for="" class="form-label">Email Address</label>
                                                 <input type="email" class="form-control" name="email" id="email" value={doctor.email} onChange={handleInputs} placeholder="Example: amitjanna@gmail.com" />
                                             </div>
@@ -108,6 +118,10 @@ const DoctorRegistration = () => {
                                             <div class="mb-3">
                                                 <label for="" class="form-label">Location</label>
                                                 <input type="text" class="form-control" name="location" id="location" value={doctor.location} onChange={handleInputs} placeholder="Example: Bandra, Mumbai" />
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="" class="form-label">Image URL</label>
+                                                <input type="text" class="form-control" name="image" id="image" value={doctor.image} onChange={handleInputs} placeholder="https://www.linktoimg.com/abc.png" />
                                             </div>
                                             <div class="mb-3">
                                                 <label for="" class="form-label">Password</label>

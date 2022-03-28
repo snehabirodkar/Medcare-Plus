@@ -6,12 +6,12 @@ import Navbar from "../NavigationBar/Navbar";
 const Registration = () => {
     const history = useHistory();
     const [patient, setPatient] = useState({
-        name: "", email: "", password: "", cpassword: ""
+        name: "", aadhar: "", age: "", email: "", password: "", cpassword: ""
     });
 
     let name, value;
     const handleInputs = (e) => {
-        console.log(e);
+        // console.log(e);
 
         name = e.target.name;
         value = e.target.value;
@@ -22,7 +22,7 @@ const Registration = () => {
     const PostData = async (e) => {
         e.preventDefault();
 
-        const { name, email, password, cpassword } = patient;
+        const { name, aadhar, age, email, password, cpassword } = patient;
 
         const res = await fetch('/register', {
             method: "POST",
@@ -30,14 +30,14 @@ const Registration = () => {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                name, email, password, cpassword
+                name, aadhar, age, email, password, cpassword
             })
         });
 
         const data = await res.json();
 
         if (res.status === 422 || !data) {
-            window.alert("Invalid Registration");
+            window.alert("Invalid Registration Details");
             console.log("Invalid Registration");
         } else {
             window.alert("Registration Successful");
@@ -62,12 +62,22 @@ const Registration = () => {
                                     <div class="mb-3">
                                         <label for="exampleInputName" class="form-label">Full Name</label>
                                         <input type="text" class="form-control" name="name" id="name" autoComplete="off"
-                                            value={patient.name} onChange={handleInputs} required />
+                                            value={patient.name} onChange={handleInputs} required placeholder="Enter Name"/>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="exampleInputAadhar" class="form-label">Aadhar Number</label>
+                                        <input type="text" class="form-control" name="aadhar" id="aadhar" autoComplete="off"
+                                            value={patient.aadhar} onChange={handleInputs} required placeholder="Enter Aadhar Number" />
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="exampleInputAge" class="form-label">Age</label>
+                                        <input type="text" class="form-control" name="age" id="age" autoComplete="off"
+                                            value={patient.age} onChange={handleInputs} required min="18" max="100" placeholder="Enter Age > 18"/>
                                     </div>
                                     <div class="mb-3">
                                         <label for="exampleInputEmail1" class="form-label">Email address</label>
                                         <input type="email" class="form-control" id="exampleInputEmail1" name="email" id="email" autoComplete="off" aria-describedby="emailHelp"
-                                            value={patient.email} onChange={handleInputs}
+                                            value={patient.email} onChange={handleInputs} placeholder="Enter Email"
                                             required />
                                     </div>
                                     <div class="mb-3">

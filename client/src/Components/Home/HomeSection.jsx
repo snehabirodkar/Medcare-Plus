@@ -21,7 +21,7 @@ const HomeSection = () => {
                                             Are you tired  up waiting for hours to consult with Physician. Book and appointement to be served on time
                                         </p>
                                         <div className="btn-container mt-5">
-                                            <NavLink className="c-btn c-btn-primary" to="/doctorsearch">Know More</NavLink>
+                                            <NavLink className="btn btn-primary" to="/doctorsearch">Know More</NavLink>
                                         </div>
                                     </div>
                                     <div className="col-md-6  my-auto">

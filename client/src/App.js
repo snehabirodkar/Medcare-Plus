@@ -33,6 +33,8 @@ import PatientDashboard from './Components/Dashboard/PatientDashboard';
 import PharmacyBook from './Components/Pharmacy/PharmacyBook';
 import DoctorModal from './Components/DoctorSearch/DoctorModal';
 
+import MedcareLogin from './Components/MedcareMainLogin/MedcareLogin';
+import MedcareRegistration from './Components/MedcareMainLogin/MedcareRegistration';
 
 //context API
 export const UserContext = createContext();
@@ -73,6 +75,8 @@ const Routing = () => {
         <Route exact path="/forum/new" component={ForumForm}></Route>
         <Route exact path="/forum/view/:id" component={ForumSolo}></Route>
         <Route exact path="/doctorsearch/bookappointment/:appointmentId" component={DoctorModal}></Route>
+        <Route exact path="/medcare/login" component={MedcareLogin}></Route>
+        <Route exact path="/medcare/registration" component={MedcareRegistration}></Route>
       </Switch>
   )
 }

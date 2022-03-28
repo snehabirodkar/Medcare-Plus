@@ -11,7 +11,6 @@ import Ratings from "../DoctorSearch/Ratings";
 const PatientDashboard = () => {
     const history = useHistory();
     var appointmentData = "";
-
     // FETCHING PATIENT APPOINTMENTS
     const [patientDetails, setPatientDetails] = useState([]);
 
@@ -37,7 +36,6 @@ const PatientDashboard = () => {
             // console.log(data);
             appointmentData = data;
             setCurrentUser(data);
-            // console.log(currentUser);
             // localStorage.setItem("patientName", data.name);
             // console.log("Appointment Data new:",appointmentData);
 
@@ -50,7 +48,6 @@ const PatientDashboard = () => {
             history.push("/login");
         }
     };
-
 
     // FETCHING PATIENT APPOINTMENT
     const getPatientData = async () => {
@@ -97,6 +94,26 @@ const PatientDashboard = () => {
         getPatientData();
         getPatientReview();
     }, []);
+
+    var uniqueId = "init";
+
+    if (currentUser.name && currentUser._id) {
+        var uniqueFullName = currentUser.name;
+        var uniqueFullId = currentUser._id;
+        console.log(uniqueFullName);
+        console.log(uniqueFullId);
+        const spiltUniqueFullName = uniqueFullName.split(" ");
+        console.log(spiltUniqueFullName[0]);
+
+        var lowerCaseUniqueName = spiltUniqueFullName[0].toLowerCase();
+        console.log(lowerCaseUniqueName);
+
+        var trimedId = uniqueFullId.toString();
+        trimedId = trimedId.slice(trimedId.length - 5);
+
+        uniqueId = lowerCaseUniqueName + trimedId;
+        console.log(uniqueId);
+    }
 
     return (
         <>
@@ -182,6 +199,11 @@ const PatientDashboard = () => {
                                     Pharmacy
                                 </NavLink>
                             </li>
+                            <li className="nav-item">
+                                <NavLink className="nav-link" to="/patient/dashboard">
+                                    Patient Dashboard
+                                </NavLink>
+                            </li>
                         </ul>
                         <form class="d-flex flex-row-reverse">
                             <NavLink class="btn btn-danger" to="/logout">
@@ -195,6 +217,11 @@ const PatientDashboard = () => {
             <section id="dashboard-container">
                 <div className="container">
                     <div className="content-box-md">
+                        <div className="row">
+                            <div className="col-md-12 mx-auto d-flex flex-row-reverse" style={{backgroundColor: "rgba(33, 132, 187, 0.1)", padding:"5px 10px", margin: "15px", borderRadius: "5px", border: "solid 1px rgba(22,132,187,1)", marginBottom: "30px"}}>
+                                <span style={{fontSize: "18px", fontWeight: "600"}}><span>Medcare Unique id: &nbsp;&nbsp;</span>{uniqueId}</span>
+                            </div>
+                        </div>
                         <h4>Greetings, {currentUser.name}</h4>
                         <hr />
                         <div className="mt-5"></div>

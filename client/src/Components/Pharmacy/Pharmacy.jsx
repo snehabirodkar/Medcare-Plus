@@ -100,7 +100,7 @@ const Pharmacy = () => {
                                             <option value="3">3</option>
                                             <option value="4">4</option>
                                         </select>
-                                        <h5 className='mt-2 mb-0'>Cost: Rs. <span id='dolo-650-price'>999</span></h5>
+                                        <h5 className='mt-2 mb-0'>Cost: Rs. <span id='dolo-650-price'>50</span></h5>
                                     </div>
                                     <p id="dolo-650" className='btn btn-primary' onClick={getData}>Add to Cart</p>
                                 </div>
@@ -160,7 +160,7 @@ const Pharmacy = () => {
                                             <option value="3">3</option>
                                             <option value="4">4</option>
                                         </select>
-                                        <h5 className='mt-2 mb-0'>Cost: Rs. <span id='kofarest-price'>999</span></h5>
+                                        <h5 className='mt-2 mb-0'>Cost: Rs. <span id='kofarest-price'>100</span></h5>
                                     </div>
                                     <button id="kofarest" className='btn btn-primary' onClick={getData}>Add to Cart</button>
                                 </div>

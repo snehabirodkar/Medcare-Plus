@@ -27,7 +27,7 @@ const DoctorSearch = () => {
                     <div className="container-fluid">
                         <div className="content-box-md">
                             <div className="row">
-                                <div className="col-md-10 mx-auto">
+                                <div className="col-md-11 mx-auto">
                                     <div className="row search-flexed mx-auto">
                                         <div className="col-md-9">
                                             <div className="row mx-3">
