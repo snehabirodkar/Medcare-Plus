@@ -57,7 +57,7 @@ const PatientDashboard = () => {
                 headers: { 'Content-Type': 'application/json' }
             });
             const getPatient = await res.json();
-            console.log("Patients Appointmet:", getPatient);
+            // console.log("Patients Appointmet:", getPatient);
             setPatientDetails(getPatient);
 
             if (!res.status === 200) {
@@ -77,7 +77,7 @@ const PatientDashboard = () => {
                 headers: { "Content-Type": "application/json" },
             });
             const getReviews = await res.json();
-            console.log(getReviews);
+            // console.log(getReviews);
             setPatientReviews(getReviews);
 
             if (!res.status === 200) {
@@ -85,6 +85,34 @@ const PatientDashboard = () => {
                 throw error;
             }
         } catch (err) {
+            console.log(err);
+        }
+    };
+
+    // CANCEL APPOINTMENT
+    const onDelete = async (id) => {
+        try{
+            const res = await fetch('/cancelAppointment', {
+                method: "DELETE",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    id: id
+                })
+            })
+    
+            window.alert("Are you sure you want delete ?");
+            window.location.reload();
+
+            const data = await res.json();
+            console.log(data);
+    
+
+            if (res.status === 200) {
+                window.alert("Deleted Successfully");
+            }
+        } catch(err) {
             console.log(err);
         }
     };
@@ -100,19 +128,19 @@ const PatientDashboard = () => {
     if (currentUser.name && currentUser._id) {
         var uniqueFullName = currentUser.name;
         var uniqueFullId = currentUser._id;
-        console.log(uniqueFullName);
-        console.log(uniqueFullId);
+        // console.log(uniqueFullName);
+        // console.log(uniqueFullId);
         const spiltUniqueFullName = uniqueFullName.split(" ");
-        console.log(spiltUniqueFullName[0]);
+        // console.log(spiltUniqueFullName[0]);
 
         var lowerCaseUniqueName = spiltUniqueFullName[0].toLowerCase();
-        console.log(lowerCaseUniqueName);
+        // console.log(lowerCaseUniqueName);
 
         var trimedId = uniqueFullId.toString();
         trimedId = trimedId.slice(trimedId.length - 5);
 
         uniqueId = lowerCaseUniqueName + trimedId;
-        console.log(uniqueId);
+        // console.log(uniqueId);
     }
 
     return (
@@ -265,9 +293,15 @@ const PatientDashboard = () => {
                                                         </div>
                                                         <hr />
                                                         <div className="d-flex flex-row-reverse">
-                                                            <a href="https://medcareplus-video.netlify.app/" target="_blank" className="btn btn-success mx-1">
-                                                                Video Call
-                                                            </a>
+                                                            <div className="">
+                                                                <a href="https://medcareplus-video.netlify.app/" target="_blank" className="btn btn-success mx-1">
+                                                                    Video Call
+                                                                </a>
+                                                            </div>
+                                                            <div className="flex-row-reverse">
+                                                                {/* { console.log("ID of PAtient:",item._id) } */}
+                                                                <button className="btn btn-outline-danger mx-2" onClick={() => onDelete(item._id)}>Delete Appointment</button>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </>
@@ -282,10 +316,10 @@ const PatientDashboard = () => {
                                 {
                                     patientReviews.map((item, index) => {
                                         if (item.pname == currentUser.name) {
-                                            console.log(item);
+                                            {/* console.log(item); */}
                                             return (
                                                 <>
-                                                    <div className="dashboard-review-wrapper">
+                                                    <div className="dashboard-review-wrapper" key={index}>
                                                         <p className="m-0">To: {item.name}</p>
                                                         <p className="pt-1 m-0">
                                                             <Ratings value={item.rating} />

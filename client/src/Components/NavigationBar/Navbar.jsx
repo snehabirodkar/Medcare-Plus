@@ -109,9 +109,40 @@ const Navbar = () => {
 
             return (
                 <>
-                    <div className="d-flex justify-content-around me-5 pe-5">
+                    {/* <div className="d-flex justify-content-around me-5 pe-5">
                         <NavLink to="/medcare/login" className="btn btn-primary">Medcare Signin</NavLink>
-                    </div>
+                    </div> */}
+                    <ul className="navbar-nav mb-2 mb-lg-0 me-5 mx-3">
+                        <li className="nav-item dropdown mx-2">
+                            <a className="nav-link dropdown-toggle p-2" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Login
+                            </a>
+                            <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li className="nav-item">
+                                    <a className="nav-link" href="/login">Patient Login</a>
+                                </li>
+                                <li className="nav-item">
+                                    <a className="nav-link" href="/doctor/login">Doctor Login</a>
+                                </li>
+                                <li className="nav-item">
+                                    <a className="nav-link" href="/admin/login">Admin Login</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li className="nav-item dropdown mx-2">
+                            <a className="nav-link dropdown-toggle p-2" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Register
+                            </a>
+                            <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li className="nav-item">
+                                    <a className="nav-link" href="/register">Patient Register</a>
+                                </li>
+                                <li className="nav-item">
+                                    <a className="nav-link" href="/doctor/register">Doctor Register</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
                 </>
             )
         }

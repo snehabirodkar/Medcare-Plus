@@ -115,6 +115,33 @@ const DoctorDashboard = () => {
         }
     };
 
+    // CANCEL APPOINTMENT
+    const onDelete = async (id) => {
+        try{
+            const res = await fetch('/cancelAppointment', {
+                method: "DELETE",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    id: id
+                })
+            })
+    
+            window.alert("Are u sure You want Delete");
+
+            window.location.reload();
+            const data = await res.json();
+            console.log(data);
+    
+            if (res.status === 200) {
+                window.alert("Deleted Successfully");
+            }
+        } catch(err) {
+            console.log(err);
+        }
+    }
+
     useEffect(() => {
         doctorMiddleware();
         getDoctorData();
@@ -267,6 +294,7 @@ const DoctorDashboard = () => {
                                                             <a href={name} className="btn btn-primary mx-1">
                                                                 Give Prescription
                                                             </a>
+                                                            <button className="btn btn-outline-danger mx-2" onClick={() => onDelete(item._id)}>Delete Appointment</button>
                                                         </div>
                                                     </div>
                                                 </>

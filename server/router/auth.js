@@ -244,7 +244,7 @@ router.post("/adminSignin", async (req, res) => {
 
     const adminLogin = await Admin.findOne({ email: email });
 
-    console.log(adminLogin);
+    // console.log(adminLogin);
 
     if (adminLogin) {
       const isMatch = await bcrypt.compare(password, adminLogin.password);
@@ -342,7 +342,7 @@ router.delete("/delete", async (req, res) => {
 
 // BOOK APPOINTMENT
 router.post("/appointment", async (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   const { pname, doctor, priority, date, time, mode } = req.body;
 
   if (!pname || !doctor || !priority || !date || !time || !mode) {
@@ -352,17 +352,12 @@ router.post("/appointment", async (req, res) => {
   try {
     const docExist = await Appointment.findOne({
       doctor: req.body.doctor,
-    });
-    const timeExist = await Appointment.findOne({
       time: req.body.time,
-    });
-    const dateExist = await Appointment.findOne({
       date: req.body.date,
     });
-
-    if (docExist && dateExist && timeExist) {
+    if (docExist) {
       res.status(422).json({ error: "Please Select another slot!" });
-    }else{
+    } else {
       const appointment = new Appointment({
         pname,
         doctor,
@@ -371,11 +366,11 @@ router.post("/appointment", async (req, res) => {
         time,
         mode,
       });
-  
-      await appointment.save();
-    }
 
-    res.status(201).json({ message: "Appointment Booked Successfully" });
+      await appointment.save();
+
+      res.status(201).json({ message: "Appointment Booked Successfully" });
+    }
   } catch (error) {
     console.log(error);
   }
@@ -540,7 +535,7 @@ router.get("/doctorSearch/bookAppointment/:id", async (req, res) => {
 // PRESCRIPTION DATA STORE
 router.post("/prescription", async (req, res) => {
   console.log(req.body);
-  const { dname, pname,  date, diagnosis, prescriptions } = req.body;
+  const { dname, pname, date, diagnosis, prescriptions } = req.body;
 
   if (!diagnosis || !prescriptions) {
     return res.status(422).json({ error: "Plz filled the field properly" });
@@ -548,11 +543,11 @@ router.post("/prescription", async (req, res) => {
 
   try {
     const prescriptionPage = new Prescription({
-        dname,
-        pname,      
-        date,
-        diagnosis,
-        prescriptions
+      dname,
+      pname,
+      date,
+      diagnosis,
+      prescriptions,
     });
 
     await prescriptionPage.save();
@@ -570,6 +565,19 @@ router.get("/getPrescription", async (req, res) => {
     return res.json(prescriptionData);
   } catch (err) {
     return res.json(err);
+  }
+});
+
+// CANCEL APPOINTMENT
+router.delete("/cancelAppointment", async (req, res) => {
+  const cancel = await Appointment.findByIdAndDelete(req.body.id);
+
+  if (cancel) {
+    await cancel.remove();
+    res.status(204).json({ message: "Appointment Removed" });
+  } else {
+    res.status(404);
+    throw new Error("Appointment Not Found");
   }
 });
 
